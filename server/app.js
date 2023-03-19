@@ -1,9 +1,9 @@
 const express = require("express");
 const app = express();
 const dotenv = require("dotenv");
+dotenv.config();
 require('./connect')
 
-dotenv.config();
 
 app.use(express.json({ limit: "20mb" }));
 app.use(express.urlencoded({ extended: false, limit: "20mb" }));
