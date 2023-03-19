@@ -9,7 +9,7 @@ const stringValue = {
 const SpecialUserSchema = new mongoose.Schema({
   profileurl: {type: String, require: true},
   dateofcreation: Date,
-  type: String,
+  orgtype: String,
   dob: Date, 
   gender: String
 })
@@ -48,6 +48,26 @@ const UserSchema = new mongoose.Schema(
     timestamps: true,
   }
 );
+
+const OrganizationSchema = new mongoose.Schema({
+  time: String,
+  gender: String,
+  worktype: String,
+  maxpeople: Number,
+  peopleleft: Number
+})
+
+const PostSchema = new mongoose.Schema({
+  title: stringValue,
+  desc: stringValue,
+  date: {type: Date, required: true},
+  type: {
+    type: String,
+    required: true,
+    enum: ["volunteer", "organization", "beneficiary"],
+  }, 
+  orgdata: OrganizationSchema
+})
 
 mongoose.pluralize(null);
 /* Exporting schema with collection as User */
