@@ -3,8 +3,6 @@ const app = express();
 
 const dotenv = require("dotenv");
 dotenv.config();
-require('./connect')
-
 
 require("./models/connect");
 
