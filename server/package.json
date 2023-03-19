@@ -1,0 +1,11 @@
+{
+  "name": "hackattack_server",
+  "version": "1.0.0",
+  "description": "Server file for hackattack hackathon",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}
