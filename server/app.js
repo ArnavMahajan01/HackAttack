@@ -16,3 +16,4 @@ PORT = process.env.PORT || 6000;
 const server = app.listen(PORT, function () {
   console.log("This server port is up and running at PORT: " + PORT);
 });
+console.log(new Date())

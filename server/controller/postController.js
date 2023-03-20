@@ -1,20 +1,22 @@
 const Post = require('../models/Post')
 const PostJoin = require('../models/PostJoin')
+const User = require('../models/User')
 
 exports.createPost = async (req, res)=>{
     const {userId, title, desc, date, typeofuser, orgdata} = req.body;
 
-
     try{
+        const user = User.findOne({_id: userId})
+        if(!user){
+            throw "User doesn't exists";
+        }
+        if(typeofuser === "organization" && !orgdata){
+            throw "organization data not given for post";
+        }
         let orginfo = {};
-        if(orgdata){
+        if(orgdata && typeofuser === "organization"){
             orginfo.orgdata = orgdata;
             orginfo.orgdata.peoplejoined = 0;
-        }
-        if(typeofuser == "organization" && !orginfo){
-            return res.status(400).json({
-                error:"organization data not given for post"
-            })
         }
         const post = new Post({
             userId: userId,
@@ -49,8 +51,11 @@ exports.joinPost = async (req, res)=>{
         if(joinDoc){
             throw "User already joined";
         }
-        const post = Post.findOne({_id: postId});
-        if(post.maxpeople == post.peoplejoined){
+        const post = await Post.findOne({_id: postId});
+        if(post.typeofuser != "organization"){
+            throw "Wrong type of post"
+        }
+        if(post.orgdata.maxpeople == post.orgdata.peoplejoined){
             throw "Max amount of people joined"
         }
 
