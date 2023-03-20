@@ -115,3 +115,34 @@ exports.joinPost = async (req, res) => {
     });
   }
 };
+
+exports.leavePost = async (req, res) =>{
+  const { userId, postId } = req.body;
+
+  try{
+    if(! await PostJoin.findOne({userId: userId,postId: postId})) throw "User not joined"
+    if(! await User.findOne({_id: userId})) throw "User doesn't exists"
+    const post = await Post.findOne({_id: postId});
+    if(!post) throw "Post doesn't exists"
+
+
+    await PostJoin.create({
+        userId:userId,
+        postId: postId
+    });
+
+
+    post.orgdata.peoplejoined--;
+    await post.save();
+
+    res.status(200).json({
+        msg:"User left"
+    })
+
+  }catch(error){
+      res.status(400).json({
+          msg:"There was an error",
+          error: error
+      })
+  }
+} 
