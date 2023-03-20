@@ -49,19 +49,17 @@ exports.joinPost = async (req, res) => {
       throw "User already joined";
     }
 
-    const post = Post.findOne({ _id: postId });
+    const post = await Post.findOne({ _id: postId });
 
-    if (post.orgdata.maxpeople == post.orgdata.peoplejoined) {
+    if (post.orgdata.maxpeople === post.orgdata.peoplejoined) {
       throw "Max amount of people joined";
     }
-    console.log("Inside try");
-    console.log("After max error");
 
     const newJoinDoc = new PostJoin({
       userId: userId,
       postId: postId,
     });
-    post.peoplejoined++;
+    post.orgdata.peoplejoined++;
     await newJoinDoc.save();
     await post.save();
 
