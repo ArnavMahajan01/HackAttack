@@ -7,11 +7,12 @@ const stringValue = {
 };
 
 const SpecialUserSchema = new mongoose.Schema({
-  profileurl: { type: String, require: true },
+  profileurl: { type: String, trim: true, required: true },
   dateofcreation: Date,
   orgtype: String,
-  dob: Date,
+  dob: { type: Date },
   gender: String,
+  typeOfWork: String,
 });
 
 const LocationSchema = new mongoose.Schema({
@@ -27,20 +28,21 @@ const UserSchema = new mongoose.Schema(
     phone: stringValue,
     data: SpecialUserSchema,
     location: LocationSchema,
+    interests: [{ type: String, trim: true }],
     interaction: {
       type: String,
-      required: true,
+      required: false,
       enum: ["phone", "chat", "video"],
       default: "phone",
     },
     interactiontime: {
       type: String,
-      required: true,
+      required: false,
       enum: ["morning", "afternoon", "evening"],
     },
     type: {
       type: String,
-      required: true,
+      required: false,
       enum: ["volunteer", "organization", "beneficiary"],
     },
   },
