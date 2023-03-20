@@ -5,5 +5,6 @@ router.use("/", require("./user"));
 router.use("/", require("./post"));
 router.use("/", require("./profileCreation"));
 router.use("/", require("./postFilter"));
+router.use("/", require("./postSort"));
 
 module.exports = router;
