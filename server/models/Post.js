@@ -11,10 +11,11 @@ const OrganizationSchema = new mongoose.Schema({
   gender: String,
   worktype: String,
   maxpeople: Number,
-  peopleleft: Number,
+  peoplejoined: Number,
 });
 
 const PostSchema = new mongoose.Schema({
+  userId: {type:mongoose.Schema.Types.ObjectId, required: true, ref: "User"},
   title: stringValue,
   desc: stringValue,
   date: { type: Date, required: true },

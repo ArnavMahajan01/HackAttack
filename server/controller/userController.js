@@ -82,7 +82,7 @@ exports.login = async (req, res, next) => {
         expiresIn: "300m",
       }
     );
-    res.status(200).json({ msg: "User Logged In", accessToken: access_token });
+    res.status(200).json({ msg: "User Logged In", accessToken: access_token, data: user.toJSON() });
   } catch (err) {
     res.status(400).json({ msg: err });
   }
