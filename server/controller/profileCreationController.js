@@ -5,13 +5,13 @@ exports.pageOne = async (req, res) => {
   try {
     if (type == "volunteer" || type == "beneficiary") {
       if (data.dateofcreation != null || data.orgtype != null) {
-        res.status(405).json({
+        return res.status(405).json({
           msg: "Can't add date of creation type or organization as a field",
         });
       }
 
       if (!data.gender || !data.dob || !data.profileurl) {
-        res.status(405).json({ msg: "Please add all the fields" });
+        return res.status(405).json({ msg: "Please add all the fields" });
       }
 
       const user = await User.findOneAndUpdate(
@@ -26,10 +26,10 @@ exports.pageOne = async (req, res) => {
         { new: true }
       );
 
-      res.status(201).json({ msg: "Profile Updated  " + user });
+      return res.status(201).json({ msg: "Profile Updated  " + user });
     } else if (type == "organization") {
       if (data.dob != null || data.gender != null) {
-        res
+        return res
           .status(405)
           .json({ msg: "Can't add date of birth or gender as a field" });
       }
@@ -40,7 +40,7 @@ exports.pageOne = async (req, res) => {
         !data.profileurl ||
         !data.typeOfWork
       ) {
-        res.status(405).json({ msg: "Please add all the fields" });
+        return res.status(405).json({ msg: "Please add all the fields" });
       }
 
       const user = await User.findOneAndUpdate(
@@ -55,7 +55,7 @@ exports.pageOne = async (req, res) => {
         { new: true }
       );
 
-      res.status(201).json({ msg: "Profile Updated  " + user });
+      return res.status(201).json({ msg: "Profile Updated  " + user });
     }
 
     /*
